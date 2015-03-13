@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('posApp', ['ionic', 'ui.bootstrap', ''])
+var app = angular.module('posApp', ['ionic','ui.router','homeApp','loginApp'])
 
-.run(function($ionicPlatform) {
+app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,39 +19,69 @@ angular.module('posApp', ['ionic', 'ui.bootstrap', ''])
       StatusBar.styleDefault();
     }
   });
-})
+});
+app.config(function($stateProvider, $urlRouterProvider) {
 
-.config(function($stateProvider, $urlRouterProvider) {
-
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
 
-  // setup an abstract state for the tabs directive
+      //.state('hello', {
+      //  url: "/hello",
+      //  template:'<h2>go along</h2>'
+      //})
 
-    .state('posattraction', {
-    url: "/",
-    abstract: true,
-    templateUrl: "templates/posattraction.html",
-    controller:'posCtrl'
-  })
+      .state('/', {
+        url: "/",
+        templateUrl: "templates/posattraction.html",
+        controller:'posCtrl'
+      })
 
-  .state('login', {
-    url: "/login",
-    abstract: true,
-    templateUrl: "templates/login.html",
-    controller:'loginCtrl'
-  })
+      .state('home', {
+        url: "/home",
+        templateUrl: "templates/home.html",
+        controller:'homeCtrl'
+      })
+      .state('login', {
+        url: "/login",
+        templateUrl: "templates/login.html",
+        controller:'loginCtrl'
+      });
 
-  .state('home', {
-    url: "/home",
-    abstract: true,
-    templateUrl: "templates/home.html",
-    controller:'homeCtrl'
-  });
+  $urlRouterProvider.otherwise("/");
 
-  $urlRouterProvider.otherwise('/tab/dash');
+})
 
-});
+
+//app.config(function($stateProvider, $urlRouterProvider) {
+//
+//  // Ionic uses AngularUI Router which uses the concept of states
+//  // Learn more here: https://github.com/angular-ui/ui-router
+//  // Set up the various states which the app can be in.
+//  // Each state's controller can be found in controllers.js
+//  $stateProvider
+//
+//  // setup an abstract state for the tabs directive
+//
+//    .state('posattraction', {
+//    url: "/",
+//     //template:'<h1>heelooo there</h1>'
+//    templateUrl: "templates/posattraction.html",
+//    controller:'posCtrl'
+//  })
+//
+//  //.state('login', {
+//  //  url: "/login",
+//  //      template:'<h1>heelo there</h1>',
+//  //  //templateUrl: "templates/login.html",
+//  //  controller:'loginCtrl'
+//  //})
+//  //
+//  //.state('home', {
+//  //  url: "/home",
+//  //  abstract: true,
+//  //  templateUrl: "templates/home.html",
+//  //  controller:'homeCtrl'
+//  //});
+//
+//  $urlRouterProvider.otherwise('/');
+//
+//});
